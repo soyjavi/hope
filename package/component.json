@@ -2,7 +2,7 @@
   "name": "hope",
   "description": "Native implementation of CommonJS Promises/A",
   "version": "1.0.0",
-  "homepage": "http://twitter.com/soyjavi",
+  "homepage": "https://github.com/soyjavi/hope",
   "author": {
     "name": "Javi Jiménez Villar",
     "site": "http://twitter.com/soyjavi"},
