@@ -10,26 +10,6 @@
         this._callbacks = [];
     }
 
-    Promise.prototype.then = function(callback, context) {
-        var _callback = _bind(callback, context);
-        if (this._isdone) {
-            _callback(this.error, this.result);
-        } else {
-            this._callbacks.push(_callback);
-        }
-    };
-
-    Promise.prototype.done = function(error, result) {
-        this._isdone = true;
-        this.error = error;
-        this.result = result;
-        for (var i = 0, len = this._callbacks.length; i < len; i++) {
-            this._callbacks[i](error, result);
-        }
-        this._callbacks = [];
-    };
-
-
     function join(callbacks) {
         var callbacks_count = callbacks.length;
         var done_count = 0;
@@ -53,7 +33,6 @@
         }
         return promise;
     }
-
     function chain(callbacks, error, result) {
         var promise = new Promise();
         if (callbacks.length === 0) {
@@ -68,26 +47,42 @@
         }
         return promise;
     }
-
     function _bind(callback, context) {
         return function() {
             return callback.apply(context, arguments);
         };
     }
+    Promise.prototype.then = function(callback, context) {
+        var _callback = _bind(callback, context);
+        if (this._isdone) {
+            _callback(this.error, this.result);
+        } else {
+            this._callbacks.push(_callback);
+        }
+    };
 
-    var Hope = {
+    Promise.prototype.done = function(error, result) {
+        this._isdone = true;
+        this.error = error;
+        this.result = result;
+        for (var i = 0, len = this._callbacks.length; i < len; i++) {
+            this._callbacks[i](error, result);
+        }
+        this._callbacks = [];
+    };
+
+    var HopeJS = {
         Promise: Promise,
         join: join,
         chain: chain
     };
 
     if (typeof define === 'function' && define.amd) {
-        /* AMD support */
         define(function() {
-            return Hope;
+            return HopeJS;
         });
     } else {
-        exports.Hope = Hope;
+        exports.HopeJS = HopeJS;
     }
 
 })(this);

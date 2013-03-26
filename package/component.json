@@ -1,0 +1,13 @@
+{
+  "name": "hope",
+  "description": "Native implementation of CommonJS Promises/A",
+  "version": "1.0.0",
+  "homepage": "http://twitter.com/soyjavi",
+  "author": {
+    "name": "Javi Jiménez Villar",
+    "site": "http://twitter.com/soyjavi"},
+  "keywords": [ "promise", "javascript", "commonjs" ],
+  "license": [{
+    "type": "MIT"
+  }]
+}
