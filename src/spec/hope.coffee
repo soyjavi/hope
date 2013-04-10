@@ -1,16 +1,16 @@
 describe "Module", ->
 
   syncDouble = (value) ->
-    hope = new Hope.Promise()
-    _double hope, value
-    hope
+    promise = new Hope.Promise()
+    _double promise, value
+    promise
 
   asyncDouble = (value, time = 1000) ->
-    hope = new Hope.Promise()
+    promise = new Hope.Promise()
     setTimeout (->
-      _double(hope, value)
+      _double(promise, value)
     ), time
-    hope
+    promise
 
   _double = (promise, value) ->
     if value > 1024
