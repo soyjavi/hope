@@ -1,7 +1,7 @@
-# hope.js
+#hope.js
 Native implementation of CommonJS Promises/A
 
-## Using the `Promise` Object
+### Using the `Promise` Object
 
 Hope provides an alternative to callback-passing. Asynchronous functions return a `Promise` object onto which callbacks can be attached.
 
@@ -27,7 +27,7 @@ Asynchronous functions resolve the promise with the `.done(error, result)` metho
         return p;                       /* (2) return it */
     }
 
-## Callbacks Signature
+### Callbacks Signature
 
 Callbacks shall have the signature: `callback(error, result)`. It matches the `.done(error, result)` signature.
 
@@ -45,9 +45,9 @@ The `error` parameter is used to pass an error code such that `error != false` i
     }
 
 
-## Chaining Functions
+### Chaining Functions
 
-    Hope.chain([f1, f2, f3, ...]);
+	Hope.chain([f1, f2, f3, ...]);
 
 `Hope.chain()` executes a bunch of asynchronous tasks in sequence, passing to each function the `error, value` arguments produced by the previous task. Each function must return a promise and resolve it somehow. `Hope.chain()` returns a `Promise`.
 
@@ -81,28 +81,34 @@ The `error` parameter is used to pass an error code such that `error != false` i
     );
 
 
-## Joining Functions
+### Joining Functions
 
     Hope.join([f1, f2, f3, ...]);
 
 `Hope.join()` executes a bunch of asynchronous tasks together, returns a promise, and resolve that promise when all tasks are done. The callbacks attached to that promise are invoked with the arguments: `[error1, error2, error3, ...], [result1, result2, result3, ...]`. Each function must return a promise and resolve it somehow.
 
 **Example**:
-
-    function late(n) {
-        var p = new Hope.Promise();
+	
+	function sync(value) {
+		var promise = new Hope.Promise();
+		promise.done(null, value);
+		return promise;
+	}
+	
+    function async(value) {
+        var promise = new Hope.Promise();
         setTimeout(function() {
-            p.done(null, n);
-        }, n);
-        return p;
+            promise.done(null, value);
+        }, 1000);
+        return promise;
     }
 
     Hope.join([
         function() {
-            return late(400);
+            return sync(10);
         },
         function() {
-            return late(800);
+            return async(800);
         }
     ]).then(
         function(errors, values) {
@@ -111,8 +117,8 @@ The `error` parameter is used to pass an error code such that `error != false` i
     );
 
 
-## Browser compatibility
+### Browser compatibility
 
-The library has been successfully tested on Chrome 20+, Safari 4+, iOS 5+ Navigator, Android 2.3+ Navigator, FirefoxOS and Blackberry 10, IE5.5+ and FF1.5+.
+**Hope** has been successfully tested on Chrome 20+, Safari 4+, iOS 5+ Navigator, Android 2.3+ Navigator, FirefoxOS and Blackberry 10, IE5.5+ and FF1.5+.
 
 Have fun!
