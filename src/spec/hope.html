@@ -70,7 +70,6 @@
             }
         );
 
-
         //CHAIN
         var date = new Date();
         Hope.chain([
@@ -93,6 +92,27 @@
         ]).then(
             function(error, value) {
                 console.error("[chain] :", (new Date() - date) + "ms", error, value);
+            }
+        );
+
+        //FULL
+        var date = new Date();
+        Hope.shield([
+            function(error, value) {
+                console.log("   >> [shield].f1", error, value);
+                return sync(1);
+            },
+            function(error, value) {
+                console.log("   >> [shield].f2", error, value);
+                return sync(value + 10);
+            },
+            function(error, value) {
+                console.log("   >> [shield].f3", error, value);
+                return sync(value + 1);
+            }
+        ]).then(
+            function(error, value) {
+                console.error("[shield] :", (new Date() - date) + "ms", error, value);
             }
         );
     </script>

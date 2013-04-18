@@ -117,6 +117,45 @@ The `error` parameter is used to pass an error code such that `error != false` i
     );
 
 
+### Shield Functions
+
+    Hope.shield([f1, f2, f3, ...]);
+
+`Hope.shield()` , passing to each function the `error, value` arguments produced by the previous task. Each function must return a promise and resolve it somehow, or when promise dispatch an error stops in currect function.
+**Example**:
+	
+	function method(value) {
+		var promise = new Hope.Promise();
+		if (value > 10) {
+            promise.done("Error: Incorrect Number (0-9)", value);
+        } else {
+            promise.done(null, value);
+        }
+		return promise;
+	}
+
+    Hope.shield([
+        function() {
+            return method(1);
+        },
+        function() {
+            return method(10); /* Raises an error */
+        },
+        function() {
+            return method(2);
+        }
+    ]).then(
+        function(error, value) {
+        	if (error) { 
+        		alert(error);
+        	else {
+            	alert(value);
+            }
+        }
+    );
+
+
+
 ### Browser compatibility
 
 **Hope** has been successfully tested on Chrome 20+, Safari 4+, iOS 5+ Navigator, Android 2.3+ Navigator, FirefoxOS and Blackberry 10, IE5.5+ and FF1.5+.
