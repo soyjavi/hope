@@ -30,19 +30,19 @@
       i++
     promise
 
-  chain = (callbacks, error, result, full) ->
+  chain = (callbacks, error, result, shield) ->
     promise = new Promise()
 
-    if callbacks.length is 0 or (full? and error?)
+    if callbacks.length is 0 or (shield? and error?)
       promise.done error, result
     else
       callbacks[0](error, result).then (result, error) ->
         callbacks.splice 0, 1
-        chain(callbacks, result, error, full).then (_error, _result) ->
+        chain(callbacks, result, error, shield).then (_error, _result) ->
           promise.done _error, _result
     promise
 
-  full = (callbacks, error, result) -> chain callbacks, error, result, true
+  shield = (callbacks, error, result) -> chain callbacks, error, result, true
 
   Promise::then = (callback, context) ->
     _callback = -> callback.apply context, arguments
@@ -68,7 +68,7 @@
     Promise : Promise
     join    : join
     chain   : chain
-    full    : full
+    shield    : shield
 
   if typeof define is "function" and define.amd
     define -> Hope
