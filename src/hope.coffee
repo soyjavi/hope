@@ -68,7 +68,7 @@
     Promise : Promise
     join    : join
     chain   : chain
-    shield    : shield
+    shield  : shield
 
   if typeof define is "function" and define.amd
     define -> Hope
