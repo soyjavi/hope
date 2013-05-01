@@ -6,10 +6,21 @@
 
 ((exports) ->
 
+  ###
+  Promise object onto which callbacks can be attached.
+  @method   Promise
+  ###
   Promise = ->
     @_callbacks = []
     @
 
+
+  ###
+  Executes a bunch of asynchronous tasks together, returns a promise, and
+  resolve that promise when all tasks are done.
+  @method   join
+  @param    {array} Array of functions
+  ###
   join = (callbacks) ->
     callbacks_count = callbacks.length
     done_count = 0
@@ -30,6 +41,13 @@
       i++
     promise
 
+
+  ###
+  Executes a bunch of asynchronous tasks in sequence, passing to each function
+  the `error, value` arguments produced by the previous task.
+  @method   chain
+  @param    {array} Array of functions
+  ###
   chain = (callbacks, error, result, shield) ->
     promise = new Promise()
 
@@ -42,8 +60,22 @@
           promise.done _error, _result
     promise
 
+
+  ###
+  Equal to chain method but Each function must return a promise and resolve it
+  somehow, or when promise dispatch an error stops in currect function.
+  @method   shield
+  @param    {array} Array of functions
+  ###
   shield = (callbacks, error, result) -> chain callbacks, error, result, true
 
+
+  ###
+  Promise suscription
+  @method   then
+  @param    {function}  Promise callback
+  @param    {object}    Context of execution
+  ###
   Promise::then = (callback, context) ->
     _callback = -> callback.apply context, arguments
 
@@ -52,6 +84,13 @@
     else
       @_callbacks.push _callback
 
+
+  ###
+  Dispatch promise method
+  @method   done
+  @param    {object} Error in callback
+  @param    {object} Result of callback
+  ###
   Promise::done = (error, result) ->
     @_isdone = true
     @error = error
@@ -64,6 +103,9 @@
       i++
     @_callbacks = []
 
+  ###
+  Module Reliable
+  ###
   Hope =
     Promise : Promise
     join    : join
