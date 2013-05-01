@@ -12,8 +12,8 @@ module.exports = (grunt) ->
               ' - Licensed <%= _.pluck(pkg.license, "type").join(", ") %> */\n'
 
     resources:
-      src: ['src/hope.coffee']
-      spec: ['src/spec/*.coffee']
+      src:      ['src/hope.coffee']
+      spec:     ['src/spec/*.coffee']
 
     coffee:
       src:
@@ -38,6 +38,7 @@ module.exports = (grunt) ->
       src:
         files: ['<%= resources.src %>', '<%= resources.spec %>']
         tasks: ['coffee', 'uglify', 'jasmine']
+
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
