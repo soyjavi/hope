@@ -117,4 +117,6 @@
   else
     exports.Hope = Hope
 
+  module.exports = Hope if module? and module.exports?
+
 ) this
