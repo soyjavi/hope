@@ -1,11 +1,11 @@
 module.exports = (grunt) ->
   grunt.initConfig
-    pkg: grunt.file.readJSON "package/component.json"
+    pkg: grunt.file.readJSON "package.json"
 
     meta:
-      file: 'hope'
-      package: 'package',
-      temp: 'build',
+      file    : 'hope'
+      package : '.',
+      temp    : 'build',
       banner: '/* <%= pkg.name %> v<%= pkg.version %> - <%= grunt.template.today("yyyy/m/d") %>\n' +
               '   <%= pkg.homepage %>\n' +
               '   Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>' +
@@ -13,7 +13,7 @@ module.exports = (grunt) ->
 
     resources:
       src:      ['src/hope.coffee']
-      spec:     ['src/spec/*.coffee']
+      spec:     ['spec/*.coffee']
 
     coffee:
       src:

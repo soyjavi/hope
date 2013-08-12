@@ -1,0 +1,16 @@
+{
+  "name": "hope",
+  "version": "1.0.1",
+  "description": "Native implementation of CommonJS Promises/A",
+  "homepage": "https://github.com/soyjavi/hope",
+  "author": {
+    "name": "Javi Jiménez Villar",
+    "email": "javi@tapquo.com"
+    "site": "http://twitter.com/soyjavi"},
+  "keywords": [ "promise", "javascript", "coffeescript", "commonjs"],
+  "license": [{
+    "type": "MIT"
+  }],
+  "main": "hope.js",
+  "scripts": [ "hope.js" ]
+}
