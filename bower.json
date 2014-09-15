@@ -1,5 +1,6 @@
 {
   "name": "hope",
+  "version": "1.0.3",
   "description": "Native implementation of CommonJS Promises/A",
   "main": "hope.js",
   "homepage": "https://github.com/soyjavi/hope",
