@@ -1,6 +1,6 @@
 {
   "name": "hope",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Native implementation of CommonJS Promises/A",
   "homepage": "https://github.com/soyjavi/hope",
   "author": {
