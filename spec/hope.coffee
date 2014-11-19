@@ -74,6 +74,14 @@ describe "Module", ->
         if error then errorString = error
       expect(errorString).not.toEqual null
 
+  it "can dispatch error in multiple sync/async methods identified with a key", ->
+    Hope.hash(
+      'one': -> syncDouble 2
+      'two': -> syncDouble 1980
+      'three': -> syncDouble 3
+    ).then (errors, values) ->
+      expect(errors['two']).not.toEqual null
+
 
   it "can chain multiple sync/async methods", ->
     result = 14

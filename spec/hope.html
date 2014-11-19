@@ -40,6 +40,20 @@
             console.error("[async] :", error, result);
         });
 
+        //HASH
+        var date = new Date();
+        Hope.join({
+            'one': function() {
+                return sync(1);
+            },
+            'two': function() {
+                return async(20, 1500);
+            }
+        }).then(
+            function(errors, values) {
+                console.error("[hash]  :", (new Date() - date) + "ms", errors, values);
+            }
+        );
 
         //JOIN
         var date = new Date();

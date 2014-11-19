@@ -18,9 +18,38 @@
   ###
   Executes a bunch of asynchronous tasks together, returns a promise, and
   resolve that promise when all tasks are done.
+  @method   hash
+  @param    {object} Object with functions
+  ###
+  hash = (callbacks) ->
+    callbacks_count = Object.keys(callbacks).length
+    done_count = 0
+    promise = new Promise()
+    errors = {}
+    results = {}
+
+    notifier = (v) ->
+      (error, result) ->
+        done_count += 1
+        errors[v] = error
+        results[v] = result
+        promise.done errors, results if done_count is callbacks_count
+
+    i = 0
+    while i < callbacks_count
+      v = Object.keys(callbacks)[i]
+      callbacks[v]().then notifier(v)
+      i++
+    promise
+
+
+  ###
+  Executes a bunch of asynchronous tasks together, returns a promise, and
+  resolve that promise when all tasks are done.
   @method   join
   @param    {array} Array of functions
   ###
+
   join = (callbacks) ->
     callbacks_count = callbacks.length
     done_count = 0
@@ -40,7 +69,6 @@
       callbacks[i]().then notifier(i)
       i++
     promise
-
 
   ###
   Executes a bunch of asynchronous tasks in sequence, passing to each function
@@ -108,6 +136,7 @@
   ###
   Hope =
     Promise : Promise
+    hash    : hash
     join    : join
     chain   : chain
     shield  : shield
