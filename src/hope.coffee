@@ -64,6 +64,8 @@
         results[i] = result
         promise.done errors, results if done_count is callbacks_count
 
+    promise.done errors, results if callbacks_count is 0
+
     i = 0
     while i < callbacks_count
       callbacks[i]().then notifier(i)
